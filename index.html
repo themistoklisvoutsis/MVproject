@@ -1,60 +1,72 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="el">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Demo — PHP API + JS AJAX</title>
-  <style>
-    body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#1f1f1f;color:#f0f0f0;margin:0}
-    header{padding:16px 20px;border-bottom:1px solid #333}
-    main{padding:20px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-    .card{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:16px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.25)}
-    input,button,select{background:#262626;color:#f5f5f5;border:1px solid #3a3a3a;border-radius:10px;padding:10px}
-    button{cursor:pointer}
-    .row{display:flex;gap:8px;align-items:center}
-    pre{white-space:pre-wrap;word-wrap:break-word;background:#151515;border-radius:12px;padding:12px;max-height:300px;overflow:auto}
-    label{opacity:.9}
-  </style>
+  <title>Αρχική</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
 </head>
 <body>
-  <header>
-    <h1>Demo AJAX προς <code>api.php</code></h1>
+  <!-- Top bar -->
+  <header class="topbar" role="banner">
+    <div class="brand-line" aria-label="Επωνυμία">
+      <div class="logo" aria-hidden="true"></div>
+      <h1>Dashboard</h1>
+    </div>
+    <div class="status" aria-live="polite">
+      <span id="connDot" class="dot" aria-hidden="true"></span>
+      <span id="connText">Έλεγχος…</span>
+    </div>
   </header>
-  <main>
-    <section class="card">
-      <h2>Ping</h2>
-      <button id="btnPing">Έλεγχος</button>
-      <pre id="outPing"></pre>
-    </section>
 
-    <section class="card">
-      <h2>Αναζήτηση μελών</h2>
-      <div class="row">
-        <input id="qMembers" placeholder="Όνομα ή Επώνυμο" />
-        <button id="btnMembers">Αναζήτηση</button>
-      </div>
-      <pre id="outMembers"></pre>
-    </section>
+  <main class="container" role="main">
+    <div class="hero">
+      <h2>Επιλογές</h2>
+      <div class="sub">Διάλεξε ενότητα για διαχείριση</div>
+    </div>
 
-    <section class="card">
-      <h2>Προσθήκη μέλους</h2>
-      <div class="row">
-        <input id="first" placeholder="Όνομα" />
-        <input id="last" placeholder="Επώνυμο" />
-        <button id="btnAdd">Προσθήκη</button>
-      </div>
-      <pre id="outAdd"></pre>
-    </section>
+    <!-- 4 κάρτες/κουμπιά -->
+    <nav class="tiles" role="navigation" aria-label="Κύριες επιλογές">
+      <a class="tile" href="members.html" data-tilt="1">
+        <span class="hint">1</span>
+        <div class="ic">👤</div>
+        <div>
+          <h3>Μέλη</h3>
+          <p>Προσθήκη, αναζήτηση & επεξεργασία μελών</p>
+        </div>
+      </a>
 
-    <section class="card">
-      <h2>Παρουσίες (σήμερα)</h2>
-      <button id="btnAttendance">Λίστα</button>
-      <pre id="outAttendance"></pre>
-    </section>
+      <a class="tile" href="attendance.html" data-tilt="1">
+        <span class="hint">2</span>
+        <div class="ic">📅</div>
+        <div>
+          <h3>Παρουσίες</h3>
+          <p>Καταχώριση & προβολή παρουσιών ανά ημέρα</p>
+        </div>
+      </a>
+
+      <a class="tile" href="reports.html" data-tilt="1">
+        <span class="hint">3</span>
+        <div class="ic">📊</div>
+        <div>
+          <h3>Αναφορές</h3>
+          <p>Σύνολα & γραφήματα σε εύρος ημερομηνιών</p>
+        </div>
+      </a>
+
+      <a class="tile" href="card.html" data-tilt="1">
+        <span class="hint">4</span>
+        <div class="ic">📝</div>
+        <div>
+          <h3>Καρτέλα Αθλητή</h3>
+          <p>Στοιχεία μέλους & σωματομετρήσεις (εκτύπωση)</p>
+        </div>
+      </a>
+    </nav>
   </main>
 
-  <script src="./app.js"></script>
+  <div class="toasts" id="toasts"></div>
+  <script src="home.js"></script>
 </body>
 </html>
-
