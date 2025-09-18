@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Παρουσίες</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Header / Layout χωρίς sidebar ===== */
+    body, html { height:100%; }
+    .topbar{
+      position: sticky; top:0; z-index:10;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 18px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand-line{ display:flex; align-items:center; gap:10px }
+    .brand-line .logo{ width:36px; height:36px; border-radius:10px; }
+    .brand-line h1{ margin:0; font-size:18px; font-weight:800; letter-spacing:.2px; }
+    .status{ display:flex; align-items:center; gap:8px; color:var(--muted); }
+    .dot{ width:10px; height:10px; border-radius:50%; background:#777; box-shadow:0 0 0 2px rgba(0,0,0,.15) inset }
+    .dot.ok { background:#36d399; }
+    .dot.err{ background:#ef4444; }
+
+    .page-wrap{ max-width:1100px; margin:0 auto; padding:18px; }
+    .page-head{ display:flex; align-items:center; gap:10px; margin:0 0 10px 0; }
+    .page-head h2{ margin:0; font-weight:900; }
+    .hint{ color:var(--muted); }
+
+    .card h2{ margin-top:4px; }
+    .table-wrap{ border-radius:14px; }
+
+    .toolbar{ gap:8px; }
+    @media (max-width:640px){
+      .page-head{ flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand-line">
+      <div class="logo"></div>
+      <h1>Παρουσίες</h1>
+    </div>
+    <div class="status">
+      <span id="connDot" class="dot"></span>
+      <span id="connText">—</span>
+    </div>
+  </header>
+
+  <!-- Περιεχόμενο -->
+  <main class="page-wrap">
+
+    <div class="page-head">
+      <h2>Διαχείριση παρουσιών</h2>
+      <div class="hint">Καταχώρισε παρουσία και δες τη λίστα για την επιλεγμένη ημερομηνία</div>
+    </div>
+
+    <div class="grid">
+      <!-- Δήλωση παρουσίας -->
+      <div class="card">
+        <h2>Δήλωση παρουσίας</h2>
+        <form id="markAttendanceForm">
+          <div class="row">
+            <div><label>ID μέλους</label><input id="memberId" type="number" placeholder="π.χ. 42" required /></div>
+            <div><label>Ημερομηνία</label><input id="attDate" type="date" /></div>
+          </div>
+          <div style="margin-top:10px"><label>Σχόλιο</label><input id="note" placeholder="π.χ. Πρωινή προπόνηση" /></div>
+          <div class="row" style="margin-top:10px">
+            <button class="btn" type="submit">Καταχώριση</button>
+            <output id="markMsg" class="muted"></output>
+          </div>
+        </form>
+      </div>
+
+      <!-- Λίστα ημερομηνίας -->
+      <div class="card">
+        <h2>Παρουσίες ανά ημερομηνία</h2>
+        <div class="toolbar" style="display:flex; align-items:center; flex-wrap:wrap">
+          <button id="prevDate" class="btn small ghost" type="button" title="Προηγούμενη">←</button>
+          <input id="filterDate" type="date" />
+          <button id="nextDate" class="btn small ghost" type="button" title="Επόμενη">→</button>
+          <div class="spacer"></div>
+          <button id="btnToday" class="btn small ghost" type="button">Σήμερα</button>
+          <button id="btnFilterDate" class="btn small" type="button">Προβολή</button>
+        </div>
+        <div id="todayList" class="muted table-wrap" style="margin-top:6px">—</div>
+      </div>
+    </div>
+  </main>
+
+  <div class="mt-4" style="display:flex; justify-content:center;">
+    <a href="home.php" class="btn btn-outline-light">
+      <i class="bi bi-arrow-left me-1"></i> Επιστροφή
+    </a>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="attendance.js"></script>
+</body>
+</html>

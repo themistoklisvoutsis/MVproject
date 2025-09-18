@@ -3,11 +3,11 @@
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, OPTIONS'); // +DELETE
+header('Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(204); exit; }
 
-// ===== ΣΤΟΙΧΕΙΑ ΣΥΝΔΕΣΗΣ (όπως μου τα έδωσες) =====
+// ===== ΣΤΟΙΧΕΙΑ ΣΥΝΔΕΣΗΣ =====
 $SB_URL = "https://wjsapjgmuplhpjzhilin.supabase.co";
 $SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indqc2FwamdtdXBsaHBqemhpbGluIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU0NDY1MTUsImV4cCI6MjA3MTAyMjUxNX0.7gJFVRoGfCrVVwyIAB_GWf_Xy85wBT4behIm73zQoZY";
 
@@ -112,11 +112,9 @@ try {
       echo json_encode($rows); break;
     }
 
-    // ---- ΒΑΣΙΚΗ ΛΙΣΤΑ ΜΕΛΩΝ (χωρίς spread, χωρίς διπλό case)
     case 'members_basic': {
       $q = trim($_GET['q'] ?? '');
       try {
-        // Προτίμηση στο view για να έχει και total_since_reset
         $params = [
           'select' => 'id,first_name,last_name,counter_epoch,total_since_reset',
           'order'  => 'id.asc',
@@ -127,7 +125,6 @@ try {
         }
         $rows = sbreq('GET', '/v_member_stats', $params);
       } catch (Throwable $e) {
-        // Fallback στον πίνακα members
         $params = [
           'select' => 'id,first_name,last_name,counter_epoch',
           'order'  => 'id.asc',
@@ -141,12 +138,10 @@ try {
       echo json_encode($rows); break;
     }
 
-    // ---- ΣΥΝΟΛΑ ΕΤΟΥΣ ΓΙΑ ΟΛΑ ΤΑ ΜΕΛΗ ΣΕ ΕΝΑ CALL
     case 'year_totals': {
       $from = $_GET['from'] ?? date('Y-01-01');
       $to   = $_GET['to']   ?? date('Y-12-31');
 
-      // Παίρνουμε μόνο member_id για παρούσες εγγραφές και αθροίζουμε σε PHP
       $p = [
         'select'      => 'member_id',
         'present'     => 'eq.true',
@@ -316,7 +311,6 @@ try {
 
     /* ==================== ΝΕΑ ΓΙΑ "ΚΑΡΤΕΛΑ ΑΘΛΗΤΗ" ==================== */
 
-    // Απλή λίστα μελών για dropdown (id, first_name, last_name)
     case 'list_members': {
       $params = [
         'select' => 'id,first_name,last_name',
@@ -326,7 +320,6 @@ try {
       echo json_encode(sbreq('GET','/members',$params)); break;
     }
 
-    // Πλήρες προφίλ μέλους (με πεδία καρτέλας: dob, address, phone, email, medical_notes)
     case 'member_get': {
       $id = (int)($_GET['id'] ?? 0);
       $params = [
@@ -339,7 +332,6 @@ try {
       echo json_encode(['ok'=>true,'data'=>$rows[0] ?? null]); break;
     }
 
-    // Αποθήκευση στοιχείων μέλους (μόνο τα σχετικά πεδία)
     case 'member_save': {
       $in = injson();
       $id = (int)($in['id'] ?? 0);
@@ -352,7 +344,6 @@ try {
       echo json_encode(['ok'=>true]); break;
     }
 
-    // Λίστα σωματομετρήσεων
     case 'meas_list': {
       $mid = (int)($_GET['member_id'] ?? 0);
       if ($mid<=0){ http_response_code(400); echo json_encode(['error'=>'member_id required']); break; }
@@ -365,7 +356,6 @@ try {
       echo json_encode(['ok'=>true,'data'=>sbreq('GET','/measurements',$params)]); break;
     }
 
-    // Προσθήκη σωματομέτρησης
     case 'meas_add': {
       $in = injson();
       $payload = [
@@ -383,15 +373,12 @@ try {
       echo json_encode(['ok'=>true,'data'=>$r[0] ?? null]); break;
     }
 
-    // Διαγραφή σωματομέτρησης
     case 'meas_delete': {
       $id = (int)($_POST['id'] ?? 0);
       if ($id<=0){ http_response_code(400); echo json_encode(['error'=>'id required']); break; }
       sbreq('DELETE','/measurements', [ 'id' => 'eq.'.$id ], null, []);
       echo json_encode(['ok'=>true]); break;
     }
-
-    /* ================== ΤΕΛΟΣ «ΚΑΡΤΕΛΑ ΑΘΛΗΤΗ» ================== */
 
     default:
       http_response_code(400);
@@ -401,3 +388,4 @@ try {
   http_response_code(500);
   echo json_encode(['error' => $e->getMessage()]);
 }
+``

@@ -1,0 +1,60 @@
+
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Demo — PHP API + JS AJAX</title>
+  <style>
+    body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#1f1f1f;color:#f0f0f0;margin:0}
+    header{padding:16px 20px;border-bottom:1px solid #333}
+    main{padding:20px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+    .card{background:#2e2e2e;border:1px solid #3a3a3a;border-radius:16px;padding:16px;box-shadow:0 4px 20px rgba(0,0,0,.25)}
+    input,button,select{background:#262626;color:#f5f5f5;border:1px solid #3a3a3a;border-radius:10px;padding:10px}
+    button{cursor:pointer}
+    .row{display:flex;gap:8px;align-items:center}
+    pre{white-space:pre-wrap;word-wrap:break-word;background:#151515;border-radius:12px;padding:12px;max-height:300px;overflow:auto}
+    label{opacity:.9}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Demo AJAX προς <code>api.php</code></h1>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Ping</h2>
+      <button id="btnPing">Έλεγχος</button>
+      <pre id="outPing"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Αναζήτηση μελών</h2>
+      <div class="row">
+        <input id="qMembers" placeholder="Όνομα ή Επώνυμο" />
+        <button id="btnMembers">Αναζήτηση</button>
+      </div>
+      <pre id="outMembers"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Προσθήκη μέλους</h2>
+      <div class="row">
+        <input id="first" placeholder="Όνομα" />
+        <input id="last" placeholder="Επώνυμο" />
+        <button id="btnAdd">Προσθήκη</button>
+      </div>
+      <pre id="outAdd"></pre>
+    </section>
+
+    <section class="card">
+      <h2>Παρουσίες (σήμερα)</h2>
+      <button id="btnAttendance">Λίστα</button>
+      <pre id="outAttendance"></pre>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
+

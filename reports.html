@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Αναφορές</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="reports.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand-line">
+      <div class="logo"></div>
+      <h1>Αναφορές</h1>
+    </div>
+    <div class="status">
+      <span id="connDot" class="dot"></span>
+      <span id="connText">—</span>
+    </div>
+  </header>
+
+  <!-- Περιεχόμενο -->
+  <main class="page-wrap">
+    <div class="page-head">
+      <h2>Αναφορές παρουσιών</h2>
+      <div class="hint">Σύνολα &amp; γραφήματα με βάση επιλεγμένο εύρος</div>
+    </div>
+
+    <section class="card" id="reportsCard">
+      <div class="toolbar" style="margin-bottom:8px">
+        <label style="min-width:160px">
+          Κλίμακα
+          <select id="repGranularity">
+            <option value="day" selected>Ημέρα</option>
+            <option value="week">Βδομάδα</option>
+            <option value="month">Μήνας</option>
+            <option value="year">Χρόνος</option>
+          </select>
+        </label>
+        <label>Από <input type="date" id="repFrom" /></label>
+        <label>Έως <input type="date" id="repTo" /></label>
+        <button id="repRun" class="btn small" type="button">Προβολή</button>
+        <div class="spacer"></div>
+        <div class="row" style="flex:unset; gap:6px">
+          <button class="btn small ghost" type="button" id="repPresetMonth">Τρέχων μήνας</button>
+          <button class="btn small ghost" type="button" id="repPreset30">Τελευταίες 30 ημέρες</button>
+          <button class="btn small ghost" type="button" id="repPresetYTD">YTD</button>
+        </div>
+      </div>
+
+      <div class="row" style="align-items:flex-end; margin:6px 0 10px">
+        <div class="muted">Σύνολο στο εύρος: <strong id="repTotal">—</strong></div>
+        <div class="spacer"></div>
+        <label style="width:auto; min-width:140px">
+          Τύπος
+          <select id="repChartType">
+            <option value="bar" selected>Bar</option>
+            <option value="line">Line</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="chart-box">
+        <canvas id="attChart" height="260"></canvas>
+      </div>
+
+      <div id="reportsArea" class="muted" style="margin-top:8px"></div>
+    </section>
+  </main>
+
+  <div class="mt-4" style="display:flex; justify-content:center;">
+    <a href="home.php" class="btn btn-outline-light">← Επιστροφή</a>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="reports.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Καρτέλα Αθλητή</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="athlete.css"><!-- ειδικά styles -->
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="brand-line">
+      <div class="logo"></div>
+      <h1>Καρτέλα Αθλητή</h1>
+    </div>
+    <div class="status">
+      <span id="connDot" class="dot"></span>
+      <span id="connText">—</span>
+    </div>
+  </header>
+
+  <!-- Περιεχόμενο -->
+  <main class="page-wrap">
+    <div class="card" id="athleteCard">
+      <div class="toolbar" style="margin:-6px 0 8px">
+        <h2 style="margin:0">Καρτέλα Αθλητή</h2>
+        <div class="spacer"></div>
+        <select id="cardMemberSelect"></select>
+        <a class="btn small ghost" href="home.php" style="margin-right:6px">Αρχική</a>
+        <button class="btn small ghost" id="btnPrintCard" type="button">Εκτύπωση</button>
+      </div>
+
+      <div class="sheet-grid">
+        <div class="logo-box"><div class="logo"></div></div>
+        <div class="sheet-title">ΚΑΡΤΕΛΑ ΠΕΛΑΤΗ</div>
+        <div></div>
+      </div>
+
+      <div class="fields">
+        <div class="field-row"><div class="field-label">ΟΝΟΜΑΤΕΠΩΝΥΜΟ:</div><div><input id="f_fullname"></div></div>
+        <div class="field-row"><div class="field-label">ΗΜ/ΝΙΑ ΓΕΝΝΗΣΗΣ:</div><div><input id="f_dob" type="date"></div></div>
+        <div class="field-row"><div class="field-label">ΔΙΕΥΘΥΝΣΗ ΚΑΤΟΙΚΙΑΣ:</div><div><input id="f_address"></div></div>
+        <div class="field-row"><div class="field-label">ΤΗΛΕΦΩΝΟ:</div><div><input id="f_phone"></div></div>
+        <div class="field-row"><div class="field-label">E-MAIL:</div><div><input id="f_email" type="email"></div></div>
+        <div class="field-row"><div class="field-label">ΣΗΜΕΙΩΣΕΙΣ ΙΑΤΡΙΚΟΥ ΙΣΤΟΡΙΚΟΥ:</div><div><textarea id="f_medical" rows="3"></textarea></div></div>
+        <div class="row" style="margin-top:4px">
+          <button class="btn" id="btnSaveMember" type="button">Αποθήκευση στοιχείων</button>
+          <span class="muted">Αποθηκεύονται στο μέλος.</span>
+        </div>
+      </div>
+
+      <h3 style="margin:16px 0 8px">ΣΩΜΑΤΟΜΕΤΡΗΣΕΙΣ</h3>
+      <div class="row" style="gap:8px;flex-wrap:wrap">
+        <input type="date" id="m_date">
+        <input type="number" step="0.01" id="m_weight" placeholder="ΒΑΡΟΣ (kg)">
+        <input type="number" step="0.01" id="m_fat" placeholder="ΛΙΠΟΣ %">
+        <input type="number" step="0.01" id="m_twb" placeholder="TWB">
+        <input type="number" step="0.01" id="m_mbw" placeholder="MBW">
+        <input type="number" step="0.01" id="m_kcal" placeholder="KCAL">
+        <input type="number" step="0.01" id="m_bones" placeholder="BONES">
+        <input type="number" step="0.01" id="m_visc"  placeholder="ΣΠΛΑΧΝ">
+        <button class="btn" id="btnAddMeas" type="button">Προσθήκη</button>
+      </div>
+
+      <div class="table-wrap" style="margin-top:8px">
+        <table class="sheet-table" id="measTable">
+          <thead><tr>
+            <th>ΗΜ/ΝΙΑ</th><th>ΒΑΡΟΣ</th><th>ΛΙΠΟΣ%</th><th>TWB</th><th>MBW</th><th>KCAL</th><th>BONES</th><th>ΣΠΛΑΧΝ</th><th></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div class="mt-4" style="display:flex; justify-content:center;">
+    <a href="home.php" class="btn btn-outline-light">← Επιστροφή</a>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script src="athlete.js"></script>
+</body>
+</html>
